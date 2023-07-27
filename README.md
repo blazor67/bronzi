@@ -1,4 +1,4 @@
 # bronzi
 scrivi i bronzi fatto da chatgpt
 
-https://blazor67.github.com/bronzi
+https://blazor67.github.io/bronzi
