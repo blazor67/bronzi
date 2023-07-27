@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Velocità di Digitazione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #timer {
+            font-size: 24px;
+            color: #333;
+        }
+        #inputField {
+            margin-top: 20px;
+            font-size: 18px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quanto velocemente riesci a scrivere "i bronzi di riace"?</h1>
+    <p id="timer">00:00:000</p>
+    <input type="text" id="inputField" placeholder="Inizia a digitare qui...">
+
+    <script>
+        
+
+        var timer = document.getElementById('timer');
+        var inputField = document.getElementById('inputField');
+
+        inputField.focus();
+
+        var startTime;
+        var intervalId;
+
+        inputField.addEventListener('input', function(event) {
+            if (startTime === undefined) {
+                startTime = Date.now();
+                intervalId = setInterval(function() {
+                    var elapsedTime = Date.now() - startTime;
+                    var minutes = Math.floor(elapsedTime / 60000);
+                    var seconds = ((elapsedTime % 60000) / 1000).toFixed(0);
+                    var milliseconds = ((elapsedTime % 1000)).toFixed(0);
+                    timer.textContent = 
+                        (minutes < 10 ? '0' : '') + minutes + ':' +
+                        (seconds < 10 ? '0' : '') + seconds + ':' +
+                        (milliseconds < 100 ? (milliseconds < 10 ? '00' : '0') : '') + milliseconds;
+                }, 1);
+            }
+
+            if (event.target.value === 'i bronzi di riace') {
+                clearInterval(intervalId);
+            }
+        });
+
+        inputField.addEventListener('change', function(event) {
+            if (event.target.value !== 'i bronzi di riace') {
+                // Reset timer
+                clearInterval(intervalId);
+                timer.textContent = '00:00:000';
+                startTime = undefined;
+            }
+        });
+    </script>
+</body>
+</html>
